@@ -46,9 +46,9 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     iscentered     isfloating   monitor */
 	{ "Gimp",        NULL,       NULL,       0,          0,               1,           -1 },
-	{ "Firefox",     NULL,       NULL,       1 << 8,     0,               0,           -1 },
     { NULL,          NULL,       "ranger",   0,          1,               1,           -1 },
 	{ NULL,          NULL,    "octave-cli",  0,          1,               1,           -1 },
+	{ NULL,          NULL,    "pulsemixer",  0,          1,               1,           -1 },
 };
 
 /* layout(s) */
@@ -87,10 +87,11 @@ static const char *termcmd[]  = { "st", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,           XK_Return,               spawn,          {.v = termcmd } },
-	{ MODKEY,           XK_d,                    spawn,          {.v = dmenucmd } },
-	/* { MODKEY,           XK_d,                    spawn,          SHCMD("rofi -show drun -show-icons") }, */
+	{ MODKEY|ShiftMask, XK_Return,               spawn,          SHCMD("samedir") },
+	{ MODKEY,           XK_d,                    spawn,          SHCMD("rofi -show drun -show-icons") },
 	{ MODKEY,           XK_Escape,               spawn,          SHCMD("shut") },
 	{ MODKEY,           XK_a,                    spawn,          SHCMD("st -e octave-cli -q") },
+	{ MODKEY|ShiftMask, XK_a,                    spawn,          SHCMD("st -e pulsemixer") },
 	{ MODKEY,           XK_w,                    spawn,          SHCMD("brave") },
 	{ MODKEY,           XK_e,                    spawn,          SHCMD("st -e ranger") },
 	{ MODKEY|ShiftMask, XK_equal,                setgaps,        {.i = +5} },
