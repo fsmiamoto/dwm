@@ -21,4 +21,6 @@ sudo make clean install
 ```
 
 ## Requirements
-This build assumes you have a version o `libxft` with support to colored emojis
+This build assumes you have a version o `libxft` with support to colored emojis ( `libxft-bgra` on the AUR for example)
+
+
