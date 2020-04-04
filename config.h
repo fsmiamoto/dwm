@@ -13,8 +13,8 @@ static const unsigned int systraypinning = 2;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 3;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 
-static const char *fonts[]          = { "JetBrains Mono:size=10", "Source Han Sans JP:size=10;0", "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "JetBrains Mono:size=11", "Source Han Sans JP:size=11;0", "monospace:size=11" };
+static const char dmenufont[]       = "JetBrains Mono:size=11";
 
 /* Xresources colors, the values below are defaults */
 static char xrdb_colors[][8] = {
@@ -64,6 +64,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask /* 4 for Super and 1 for Alt */
+#define NONE 0
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -75,37 +76,41 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", xrdb_colors[1], "-nf", xrdb_colors[7], "-sb", xrdb_colors[2], "-sf", xrdb_colors[0], NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", xrdb_colors[0], "-nf", xrdb_colors[7], "-sb", xrdb_colors[4], "-sf", xrdb_colors[7], NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include "selfrestart.c"
+#include <X11/XF86keysym.h>
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_d,      spawn,          SHCMD("rofi -show drun -show-icons") },
-	{ MODKEY,                       XK_Escape, spawn,          SHCMD("shut") },
-	{ MODKEY,                       XK_a,      spawn,          SHCMD("st -e octave-cli -q") },
-	{ MODKEY,                       XK_w,      spawn,          SHCMD("brave") },
-	{ MODKEY,                       XK_e,      spawn,          SHCMD("st -e ranger") },
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = +5} },
-	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = -5} },
-	{ MODKEY|ShiftMask,             XK_p,      setgaps,        {.i = 0} },
-	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
-	{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } },
-	{ MODKEY,                       XK_q,      killclient,     {0} },
-    { MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,           XK_Return,               spawn,          {.v = termcmd } },
+	{ MODKEY,           XK_d,                    spawn,          {.v = dmenucmd } },
+	/* { MODKEY,           XK_d,                    spawn,          SHCMD("rofi -show drun -show-icons") }, */
+	{ MODKEY,           XK_Escape,               spawn,          SHCMD("shut") },
+	{ MODKEY,           XK_a,                    spawn,          SHCMD("st -e octave-cli -q") },
+	{ MODKEY,           XK_w,                    spawn,          SHCMD("brave") },
+	{ MODKEY,           XK_e,                    spawn,          SHCMD("st -e ranger") },
+	{ MODKEY|ShiftMask, XK_equal,                setgaps,        {.i = +5} },
+	{ MODKEY|ShiftMask, XK_minus,                setgaps,        {.i = -5} },
+	{ MODKEY|ShiftMask, XK_p,                    setgaps,        {.i = 0} },
+	{ MODKEY,           XK_f,                    togglefullscr,  {0} },
+	{ MODKEY,           XK_F5,                   xrdb,           {.v = NULL } },
+	{ MODKEY,           XK_q,                    killclient,     {0} },
+    { MODKEY|ShiftMask, XK_r,                    self_restart,   {0} },
+	{ MODKEY,           XK_j,                    focusstack,     {.i = +1 } },
+	{ MODKEY,           XK_k,                    focusstack,     {.i = -1 } },
+	{ MODKEY,           XK_h,                    setmfact,       {.f = -0.05} },
+	{ MODKEY,           XK_l,                    setmfact,       {.f = +0.05} },
+	{ MODKEY,           XK_Tab,                  setlayout,      {0} },
+	{ MODKEY,           XK_space,                togglefloating, {0} },
+	{ NONE,             XF86XK_AudioMute,        spawn,          SHCMD("pulsemixer --toggle-mute") },
+	{ NONE,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("pulsemixer --change-volume +3") },
+	{ NONE,             XF86XK_AudioLowerVolume, spawn,          SHCMD("pulsemixer --change-volume -3") },
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_Tab,    setlayout,      {0} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,             XK_space,  view,           {0} },
-	{ MODKEY,                       XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -122,6 +127,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	/* { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } }, */
 	/* { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } }, */
     /* { MODKEY,                       XK_Return, zoom,           {0} }, */
 	/* { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, */
