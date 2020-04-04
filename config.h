@@ -4,29 +4,34 @@
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 8;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+
 static const int showbar            = 1;        /* 0 means no bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+
 static const int showsystray = 1;
 static const unsigned int systraypinning = 1;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 3;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int topbar             = 1;        /* 0 means bottom bar */
+
 static const char *fonts[]          = { "JetBrains Mono:size=10", "Source Han Sans JP:size=10;0", "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#005577";
-static char selbgcolor[]            = "#005577";
+
+/* Xresources colors, the values below are defaults */
+static char xrdb_colors[][8] = {
+    "#2b303b", "#bf616a", "#a3be8c", "#ebcb8b", "#8fa1b3", "#b48ead", "#96b5b4",
+    "#c0c5ce", "#65737e", "#bf616a", "#a3be8c", "#ebcb8b", "#8fa1b3", "#b48ead",
+    "#96b5b4", "#c0c5ce"
+};
+
 static char *colors[][3] = {
        /*                   fg           bg           border   */
-       [SchemeNorm]     = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]      = { selfgcolor,  selbgcolor,  selbordercolor  },
-       [SchemeStatus]   = { normfgcolor, normbgcolor,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-       [SchemeTagsSel]  = { selfgcolor, selbgcolor,  "#000000"  },   // Tagbar left selected {text,background,not used but cannot be empty}
-       [SchemeTagsNorm] = { normfgcolor, normbgcolor,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-       [SchemeInfoSel]  = { normfgcolor, normbgcolor,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-       [SchemeInfoNorm] = { normfgcolor, normbgcolor,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+       [SchemeNorm]     = { xrdb_colors[7], xrdb_colors[0], xrdb_colors[0] },
+       [SchemeSel]      = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[1]  },
+       [SchemeStatus]   = { xrdb_colors[7], xrdb_colors[0], "#000000"  },      // Statusbar right {text,background,not used but cannot be empty}
+       [SchemeTagsSel]  = { xrdb_colors[0], xrdb_colors[6], "#000000"  },      // Tagbar left selected {text,background,not used but cannot be empty}
+       [SchemeTagsNorm] = { xrdb_colors[6], xrdb_colors[0], "#000000"  },      // Tagbar left unselected {text,background,not used but cannot be empty}
+       [SchemeInfoSel]  = { xrdb_colors[7], xrdb_colors[0], "#000000"  },      // infobar middle  selected {text,background,not used but cannot be empty}
+       [SchemeInfoNorm] = { xrdb_colors[7], xrdb_colors[0], "#000000"  },      // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 /* tagging */
@@ -70,7 +75,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", xrdb_colors[1], "-nf", xrdb_colors[7], "-sb", xrdb_colors[2], "-sf", xrdb_colors[0], NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include "selfrestart.c"

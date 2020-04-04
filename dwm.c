@@ -1174,12 +1174,22 @@ loadxrdb()
       xrdb = XrmGetStringDatabase(resm);
 
       if (xrdb != NULL) {
-        XRDB_LOAD_COLOR("dwm.color0", normbordercolor);
-        XRDB_LOAD_COLOR("dwm.color0", normbgcolor);
-        XRDB_LOAD_COLOR("dwm.color6", normfgcolor);
-        XRDB_LOAD_COLOR("dwm.color8", selbordercolor);
-        XRDB_LOAD_COLOR("dwm.color0", selfgcolor);
-        XRDB_LOAD_COLOR("dwm.color14", selbgcolor);
+        XRDB_LOAD_COLOR("dwm.color0", xrdb_colors[0]);
+        XRDB_LOAD_COLOR("dwm.color1", xrdb_colors[1]);
+        XRDB_LOAD_COLOR("dwm.color2", xrdb_colors[2]);
+        XRDB_LOAD_COLOR("dwm.color3", xrdb_colors[3]);
+        XRDB_LOAD_COLOR("dwm.color4", xrdb_colors[4]);
+        XRDB_LOAD_COLOR("dwm.color5", xrdb_colors[5]);
+        XRDB_LOAD_COLOR("dwm.color6", xrdb_colors[6]);
+        XRDB_LOAD_COLOR("dwm.color7", xrdb_colors[7]);
+        XRDB_LOAD_COLOR("dwm.color8", xrdb_colors[8]);
+        XRDB_LOAD_COLOR("dwm.color9", xrdb_colors[9]);
+        XRDB_LOAD_COLOR("dwm.color10", xrdb_colors[10]);
+        XRDB_LOAD_COLOR("dwm.color11", xrdb_colors[11]);
+        XRDB_LOAD_COLOR("dwm.color12", xrdb_colors[12]);
+        XRDB_LOAD_COLOR("dwm.color13", xrdb_colors[13]);
+        XRDB_LOAD_COLOR("dwm.color14", xrdb_colors[14]);
+        XRDB_LOAD_COLOR("dwm.color15", xrdb_colors[15]);
       }
     }
   }
