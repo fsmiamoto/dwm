@@ -7,7 +7,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int horizpadbar        = 5;        /* horizontal padding for statusbar */
+static const int horizpadbar        = 0;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 5;        /* vertical padding for statusbar */
 
 static const int showsystray = 1;
@@ -100,6 +100,7 @@ static Key keys[] = {
 	{ MODKEY,           XK_f,                    togglefullscr,  {0} },
 	{ MODKEY,           XK_F5,                   xrdb,           {.v = NULL } },
 	{ MODKEY,           XK_q,                    killclient,     {0} },
+	{ MODKEY|ShiftMask, XK_q,                    quit,           {0} },
     { MODKEY|ShiftMask, XK_r,                    self_restart,   {0} },
 	{ MODKEY,           XK_j,                    focusstack,     {.i = +1 } },
 	{ MODKEY,           XK_k,                    focusstack,     {.i = -1 } },
@@ -120,7 +121,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
