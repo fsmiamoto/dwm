@@ -1,7 +1,7 @@
 # dwm - dynamic window manager
 This is my build for dwm, an extremely fast, small, and dynamic window manager for X.
 
-Since this is suckless, documentation for key-bindings is in the `config.h` file.
+Since this is suckless, documentation is source code :v 
 
 ## Included patches   
 - center    
