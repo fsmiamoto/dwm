@@ -15,8 +15,8 @@ static const unsigned int systraypinning = 2;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 3;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 
-static const char *fonts[]          = { "JetBrains Mono:size=11", "Source Han Sans JP:size=11;0", "monospace:size=11" };
-static const char dmenufont[]       = "JetBrains Mono:size=11";
+static const char *fonts[]          = { "JetBrains Mono:size=10", "Source Han Sans JP:size=10;0", "monospace:size=10" };
+static const char dmenufont[]       = "JetBrains Mono:size=10";
 
 /* Xresources colors, the values below are defaults */
 static char xrdb_colors[][8] = {
@@ -27,13 +27,14 @@ static char xrdb_colors[][8] = {
 
 static char *colors[][3] = {
        /*                   fg           bg           border   */
-       [SchemeNorm]     = { xrdb_colors[7], xrdb_colors[0], xrdb_colors[0] },
-       [SchemeSel]      = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[6]  },
-       [SchemeStatus]   = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-       [SchemeTagsSel]  = { xrdb_colors[7], xrdb_colors[4], "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-       [SchemeTagsNorm] = { xrdb_colors[6], xrdb_colors[0], "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-       [SchemeInfoSel]  = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-       [SchemeInfoNorm] = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+       [SchemeNorm]       = { xrdb_colors[7], xrdb_colors[0], xrdb_colors[0] },
+       [SchemeSel]        = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[6]  },
+       [SchemeStatus]     = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+       [SchemeStatusLine] = { xrdb_colors[3], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+       [SchemeTagsSel]    = { xrdb_colors[7], xrdb_colors[5], "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+       [SchemeTagsNorm]   = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+       [SchemeInfoSel]    = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+       [SchemeInfoNorm]   = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 };
 
 /* tagging */
@@ -46,7 +47,9 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     iscentered     isfloating   monitor */
 	{ "Gimp",        NULL,       NULL,       0,          0,               1,           -1 },
+	{ "arandr",      NULL,       NULL,       0,          1,               1,           -1 },
     { NULL,          NULL,       "ranger",   0,          1,               1,           -1 },
+    { NULL,          NULL,           "lf",   0,          1,               1,           -1 },
 	{ NULL,          NULL,    "octave-cli",  0,          1,               1,           -1 },
 	{ NULL,          NULL,    "pulsemixer",  0,          1,               1,           -1 },
 };
@@ -81,7 +84,6 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", xrdb_colors[0], "-nf", xrdb_colors[7], "-sb", xrdb_colors[4], "-sf", xrdb_colors[7], NULL };
 static const char *termcmd[]  = { "st", NULL };
 
-#include "selfrestart.c"
 #include <X11/XF86keysym.h>
 
 static Key keys[] = {
@@ -93,7 +95,8 @@ static Key keys[] = {
 	{ MODKEY,           XK_a,                    spawn,          SHCMD("st -e octave-cli -q") },
 	{ MODKEY|ShiftMask, XK_a,                    spawn,          SHCMD("st -e pulsemixer") },
 	{ MODKEY,           XK_w,                    spawn,          SHCMD("brave") },
-	{ MODKEY,           XK_e,                    spawn,          SHCMD("st -e ranger") },
+	{ MODKEY,           XK_e,                    spawn,          SHCMD("st -e lf") },
+	{ MODKEY,           XK_v,                    spawn,          SHCMD("arandr") },
 	{ MODKEY|ShiftMask, XK_equal,                setgaps,        {.i = +5} },
 	{ MODKEY|ShiftMask, XK_minus,                setgaps,        {.i = -5} },
 	{ MODKEY|ShiftMask, XK_p,                    setgaps,        {.i = 0} },
@@ -101,7 +104,6 @@ static Key keys[] = {
 	{ MODKEY,           XK_F5,                   xrdb,           {.v = NULL } },
 	{ MODKEY,           XK_q,                    killclient,     {0} },
 	{ MODKEY|ShiftMask, XK_q,                    quit,           {0} },
-    { MODKEY|ShiftMask, XK_r,                    self_restart,   {0} },
 	{ MODKEY,           XK_j,                    focusstack,     {.i = +1 } },
 	{ MODKEY,           XK_k,                    focusstack,     {.i = -1 } },
 	{ MODKEY,           XK_h,                    setmfact,       {.f = -0.05} },
@@ -111,9 +113,10 @@ static Key keys[] = {
 	{ NONE,             XF86XK_AudioMute,        spawn,          SHCMD("pulsemixer --toggle-mute") },
 	{ NONE,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("pulsemixer --change-volume +3") },
 	{ NONE,             XF86XK_AudioLowerVolume, spawn,          SHCMD("pulsemixer --change-volume -3") },
+	{ NONE,             XK_Print,                spawn,          SHCMD("flameshot gui") },
+    { MODKEY,           XK_m,                    zoom,           {0} },                                    /* Promote window as master */
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY|ShiftMask,             XK_space,  view,           {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -130,9 +133,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	/* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
 	/* { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } }, */
 	/* { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } }, */
-    /* { MODKEY,                       XK_Return, zoom,           {0} }, */
 	/* { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, */
 	/* { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, */
 };
