@@ -110,7 +110,7 @@ static Key keys[] = {
 	{ MODKEY,           XK_l,                    setmfact,       {.f = +0.05} },
 	{ MODKEY,           XK_Tab,                  setlayout,      {0} },
 	{ MODKEY,           XK_space,                togglefloating, {0} },
-	{ NONE,             XF86XK_AudioMute,        spawn,          SHCMD("pulsemixer --toggle-mute") },
+	{ NONE,             XF86XK_AudioMute,        spawn,          SHCMD("pulsemixer --toggle-mute && pkill -RTMIN+10 dwmblocks") },
 	{ NONE,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("pulsemixer --change-volume +3 && pkill -RTMIN+10 dwmblocks") },
 	{ NONE,             XF86XK_AudioLowerVolume, spawn,          SHCMD("pulsemixer --change-volume -3 && pkill -RTMIN+10 dwmblocks") },
 	{ NONE,             XK_Print,                spawn,          SHCMD("flameshot gui") },
