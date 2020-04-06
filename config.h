@@ -7,7 +7,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int horizpadbar        = 0;        /* horizontal padding for statusbar */
+static const int horizpadbar        = -2;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 5;        /* vertical padding for statusbar */
 
 static const int showsystray = 1;
@@ -30,8 +30,8 @@ static char *colors[][3] = {
        [SchemeNorm]       = { xrdb_colors[7], xrdb_colors[0], xrdb_colors[0] },
        [SchemeSel]        = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[6]  },
        [SchemeStatus]     = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-       [SchemeStatusLine] = { xrdb_colors[3], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-       [SchemeTagsSel]    = { xrdb_colors[7], xrdb_colors[5], "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+       [SchemeStatusLine] = { xrdb_colors[4], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+       [SchemeTagsSel]    = { xrdb_colors[7], xrdb_colors[3], "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
        [SchemeTagsNorm]   = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
        [SchemeInfoSel]    = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
        [SchemeInfoNorm]   = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
@@ -111,8 +111,8 @@ static Key keys[] = {
 	{ MODKEY,           XK_Tab,                  setlayout,      {0} },
 	{ MODKEY,           XK_space,                togglefloating, {0} },
 	{ NONE,             XF86XK_AudioMute,        spawn,          SHCMD("pulsemixer --toggle-mute") },
-	{ NONE,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("pulsemixer --change-volume +3") },
-	{ NONE,             XF86XK_AudioLowerVolume, spawn,          SHCMD("pulsemixer --change-volume -3") },
+	{ NONE,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("pulsemixer --change-volume +3 && pkill -RTMIN+10 dwmblocks") },
+	{ NONE,             XF86XK_AudioLowerVolume, spawn,          SHCMD("pulsemixer --change-volume -3 && pkill -RTMIN+10 dwmblocks") },
 	{ NONE,             XK_Print,                spawn,          SHCMD("flameshot gui") },
     { MODKEY,           XK_m,                    zoom,           {0} },                                    /* Promote window as master */
 
