@@ -839,16 +839,14 @@ drawbar(Monitor *m)
 		if (c->isurgent)
 			urg |= c->tags;
 	}
-	x = 0;
-	for (i = 0; i < LENGTH(tags); i++) {
+	for (i = 0, x = 0; i < LENGTH(tags); i++, x += w) {
 		w = TEXTW(tags[i]);
-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeTagsSel : SchemeTagsNorm]);
+        int is_selected = m->tagset[m->seltags] & 1 << i;
+		drw_setscheme(drw, scheme[is_selected ? SchemeTagsSel : SchemeTagsNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
-		if (occ & 1 << i)
-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
-				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-				urg & 1 << i);
-		x += w;
+		if (occ & 1 << i || is_selected)
+			drw_rect(drw, x, drw->fonts->h+3, w, 3, 1, urg & 1 << i);
+				/* m == selmon && selmon->sel && selmon->sel->tags & 1 << i, */
 	}
 	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeTagsNorm]);
