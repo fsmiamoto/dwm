@@ -1235,8 +1235,8 @@ manage(Window w, XWindowAttributes *wa)
 	c->bw = borderpx;
 
 	if(c->iscentered) {
-		c->x = centered_width_offset * (c->mon->mw - WIDTH(c));
-		c->y = (c->mon->mh - HEIGHT(c)) / 2;
+		c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
+		c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
 	}
 
 	wc.border_width = c->bw;
@@ -2431,8 +2431,10 @@ updatewindowtype(Client *c)
 
 	if (state == netatom[NetWMFullscreen])
 		setfullscreen(c, 1);
-	if (wtype == netatom[NetWMWindowTypeDialog])
+    if (wtype == netatom[NetWMWindowTypeDialog]){
 		c->isfloating = 1;
+        c->iscentered = 1;
+    }
 }
 
 void
