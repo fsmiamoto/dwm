@@ -841,12 +841,16 @@ drawbar(Monitor *m)
 	}
 	for (i = 0, x = 0; i < LENGTH(tags); i++, x += w) {
 		w = TEXTW(tags[i]);
+
         int is_selected = m->tagset[m->seltags] & 1 << i;
-		drw_setscheme(drw, scheme[is_selected ? SchemeTagsSel : SchemeTagsNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
-		if (occ & 1 << i || is_selected)
-			drw_rect(drw, x, drw->fonts->h+3, w, 3, 1, urg & 1 << i);
-				/* m == selmon && selmon->sel && selmon->sel->tags & 1 << i, */
+
+        drw_setscheme(drw, scheme[is_selected ? SchemeTagsSel : SchemeTagsNorm]);
+        drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+
+        /* Draw line below tag number to indicate that it is selected or has a window */
+        if (occ & 1 << i || is_selected){
+            drw_rect(drw, x, drw->fonts->h+2, w, 3, 3, urg & 1 << i);
+        }
 	}
 	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeTagsNorm]);
