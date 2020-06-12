@@ -18,6 +18,8 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=10", "Source Han Sans JP:size=10;0", "monospace:size=10" };
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=10";
 
+static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
+
 /* Xresources colors, the values below are defaults */
 static char xrdb_colors[][8] = {
     "#2b303b", "#bf616a", "#a3be8c", "#ebcb8b", "#8fa1b3", "#b48ead", "#96b5b4",
@@ -31,7 +33,7 @@ static char *colors[][3] = {
        [SchemeSel]        = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[6]  },
        [SchemeStatus]     = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
        [SchemeStatusLine] = { xrdb_colors[4], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-       [SchemeTagsSel]    = { xrdb_colors[7], xrdb_colors[3], "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+       [SchemeTagsSel]    = { xrdb_colors[7], xrdb_colors[2], "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
        [SchemeTagsNorm]   = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
        [SchemeInfoSel]    = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
        [SchemeInfoNorm]   = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
@@ -45,13 +47,12 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     iscentered     isfloating   monitor */
-	{ "Gimp",        NULL,       NULL,       0,          0,               1,           -1 },
-	{ "arandr",      NULL,       NULL,       0,          1,               1,           -1 },
-    { NULL,          NULL,       "ranger",   0,          1,               1,           -1 },
-    { NULL,          NULL,           "lf",   0,          1,               1,           -1 },
-	{ NULL,          NULL,    "octave-cli",  0,          1,               1,           -1 },
-	{ NULL,          NULL,    "pulsemixer",  0,          1,               1,           -1 },
+	/* class         instance    title                tags mask     iscentered     isfloating   isterminal    noswallow    monitor */
+	{ "st",          NULL,       NULL,                0,            0,             0,           1,            0,           -1 },
+	{ NULL,          NULL,       "EventTester",       0,            1,             1,           0,            0,           -1 },
+	{ NULL,          NULL,       "pulsemixer",        0,            1,             1,           0,            0,           -1 },
+	{ NULL,          NULL,       "lf",                0,            1,             1,           0,            0,           -1 },
+	{ NULL,          NULL,       "octave-cli",        0,            1,             1,           0,            0,           -1 },
 };
 
 /* layout(s) */
@@ -112,6 +113,8 @@ static Key keys[] = {
 	{ NONE,             XF86XK_AudioMute,        spawn,          SHCMD("pulsemixer --toggle-mute && pkill -RTMIN+10 dwmblocks") },
 	{ NONE,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("pulsemixer --change-volume +3 && pkill -RTMIN+10 dwmblocks") },
 	{ NONE,             XF86XK_AudioLowerVolume, spawn,          SHCMD("pulsemixer --change-volume -3 && pkill -RTMIN+10 dwmblocks") },
+	{ NONE,             XF86XK_MonBrightnessUp,  spawn,          SHCMD("sudo xbacklight -inc 5 && pkill -RTMIN+11 dwmblocks") },
+	{ NONE,             XF86XK_MonBrightnessDown,spawn,          SHCMD("sudo xbacklight -dec 5 && pkill -RTMIN+11 dwmblocks") },
 	{ NONE,             XK_Print,                spawn,          SHCMD("flameshot gui") },
     { MODKEY,           XK_m,                    zoom,           {0} },                                    /* Promote window as master */
 
