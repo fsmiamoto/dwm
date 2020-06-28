@@ -50,8 +50,9 @@ static const Rule rules[] = {
 	{ "arandr",      NULL,       NULL,       0,          1,               1,           -1 },
     { NULL,          NULL,       "ranger",   0,          1,               1,           -1 },
     { NULL,          NULL,           "lf",   0,          1,               1,           -1 },
-	{ NULL,          NULL,    "octave-cli",  0,          1,               1,           -1 },
-	{ NULL,          NULL,    "pulsemixer",  0,          1,               1,           -1 },
+    { NULL,          NULL,         "ytop",   0,          1,               1,           -1 },
+	{ NULL,          NULL,   "octave-cli",   0,          1,               1,           -1 },
+	{ NULL,          NULL,   "pulsemixer",   0,          1,               1,           -1 },
 };
 
 /* layout(s) */
@@ -96,6 +97,9 @@ static Key keys[] = {
 	{ MODKEY,           XK_w,                    spawn,          SHCMD("brave") },
 	{ MODKEY,           XK_e,                    spawn,          SHCMD("st -e lf") },
 	{ MODKEY,           XK_v,                    spawn,          SHCMD("arandr") },
+	{ MODKEY,           XK_r,                    spawn,          SHCMD("st -e ytop") },
+	{ MODKEY,           XK_i,                    incnmaster,     {.i = +1 } },
+	{ MODKEY,           XK_o,                    incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask, XK_equal,                setgaps,        {.i = +5} },
 	{ MODKEY|ShiftMask, XK_minus,                setgaps,        {.i = -5} },
 	{ MODKEY|ShiftMask, XK_p,                    setgaps,        {.i = 0} },
@@ -133,7 +137,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	/* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
-	/* { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } }, */
 	/* { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } }, */
 	/* { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, */
 	/* { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, */
