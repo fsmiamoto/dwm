@@ -51,6 +51,7 @@ static const Rule rules[] = {
     { NULL,          NULL,       "ranger",   0,          1,               1,           -1 },
     { NULL,          NULL,           "lf",   0,          1,               1,           -1 },
     { NULL,          NULL,         "ytop",   0,          1,               1,           -1 },
+    { NULL,          NULL,        "float",   0,          1,               1,           -1 },
 	{ NULL,          NULL,   "octave-cli",   0,          1,               1,           -1 },
 	{ NULL,          NULL,   "pulsemixer",   0,          1,               1,           -1 },
 };
@@ -98,6 +99,7 @@ static Key keys[] = {
 	{ MODKEY,           XK_e,                    spawn,          SHCMD("st -e lf") },
 	{ MODKEY,           XK_v,                    spawn,          SHCMD("arandr") },
 	{ MODKEY,           XK_r,                    spawn,          SHCMD("st -e ytop") },
+	{ MODKEY,           XK_s,                    spawn,          SHCMD("st -t float") },
 	{ MODKEY,           XK_i,                    incnmaster,     {.i = +1 } },
 	{ MODKEY,           XK_o,                    incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask, XK_equal,                setgaps,        {.i = +5} },
