@@ -847,8 +847,11 @@ drawbar(Monitor *m)
         drw_setscheme(drw, scheme[is_selected ? SchemeTagsSel : SchemeTagsNorm]);
         drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 
-        /* Draw line below tag number to indicate that it is selected or has a window */
-        if (occ & 1 << i || is_selected){
+        /* Draw line below tag number to indicate that it is selected */
+        if (is_selected){
+            drw_rect(drw, x, drw->fonts->h+2, w, 3, 3, urg & 1 << i);
+        } else if (occ & 1 << i){
+            drw_setscheme(drw, scheme[SchemeStatusLine]);
             drw_rect(drw, x, drw->fonts->h+2, w, 3, 3, urg & 1 << i);
         }
 	}
