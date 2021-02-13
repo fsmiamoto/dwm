@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static const unsigned int gappx     = 8;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 
@@ -28,7 +28,7 @@ static char xrdb_colors[][8] = {
 static char *colors[][3] = {
        /*                   fg           bg           border   */
        [SchemeNorm]       = { xrdb_colors[7], xrdb_colors[0], xrdb_colors[0] },
-       [SchemeSel]        = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[6]  },
+       [SchemeSel]        = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[9]  },
        [SchemeStatus]     = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
        [SchemeStatusLine] = { xrdb_colors[4], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
        [SchemeTagsSel]    = { xrdb_colors[7], xrdb_colors[3], "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
