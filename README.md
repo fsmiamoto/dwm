@@ -4,7 +4,7 @@ This is my build for dwm, an extremely fast, small, and dynamic window manager f
 Since this is suckless, documentation is source code :v 
 
 ## Included patches   
-- center    
+- center
 - colorbar
 - fullgaps
 - statuspadding
@@ -13,6 +13,8 @@ Since this is suckless, documentation is source code :v
 - fullscreen
 - systray
 - warp
+- focusonactive
+- ewmhtags
 
 The xrdb patch was modified to access all the avaliable colors, useful if you use pywal for example.
 
