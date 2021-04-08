@@ -12,6 +12,7 @@ Since this is suckless, documentation is source code :v
 - xrdb*
 - fullscreen
 - systray
+- warp
 
 The xrdb patch was modified to access all the avaliable colors, useful if you use pywal for example.
 
