@@ -28,7 +28,7 @@ static char xrdb_colors[][8] = {
 static char *colors[][3] = {
        /*                   fg           bg           border   */
        [SchemeNorm]       = { xrdb_colors[7], xrdb_colors[0], xrdb_colors[0] },
-       [SchemeSel]        = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[9]  },
+       [SchemeSel]        = { xrdb_colors[0], xrdb_colors[6], xrdb_colors[2]  },
        [SchemeStatus]     = { xrdb_colors[7], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
        [SchemeStatusLine] = { xrdb_colors[4], xrdb_colors[0], "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
        [SchemeTagsSel]    = { xrdb_colors[7], xrdb_colors[3], "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
@@ -103,6 +103,7 @@ static Key keys[] = {
 	{ MODKEY,           XK_r,                    spawn,          SHCMD("rofi -show window") },
 	{ MODKEY,           XK_s,                    spawn,          SHCMD("rofi -show ssh") },
 	{ MODKEY,           XK_n,                    spawn,          SHCMD("st -t 'nb' -e nb add") },
+	{ MODKEY,           XK_dead_grave,                spawn,          SHCMD("skippy-xd") },
 	{ MODKEY,           XK_i,                    incnmaster,     {.i = +1 } },
 	{ MODKEY,           XK_o,                    incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask, XK_equal,                setgaps,        {.i = +5} },
