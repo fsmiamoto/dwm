@@ -25,6 +25,11 @@ static char xrdb_colors[][8] = {
     "#96b5b4", "#c0c5ce"
 };
 
+static const char *const autostart[] = {
+	"fcitx5", NULL,
+	NULL /* terminate */
+};
+
 static char *colors[][3] = {
        /*                   fg           bg           border   */
        [SchemeNorm]       = { xrdb_colors[7], xrdb_colors[0], xrdb_colors[0] },
