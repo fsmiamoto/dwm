@@ -15,8 +15,8 @@ static const unsigned int systraypinning = 2;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 3;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "monospace:size=11" };
+static const char dmenufont[]       = "monospace:size=11";
 
 /* Xresources colors, the values below are defaults */
 static char xrdb_colors[][8] = {
@@ -61,6 +61,11 @@ static const Rule rules[] = {
 	{ NULL,          NULL,   "octave-cli",   0,          1,               1,           -1 },
 	{ NULL,          NULL,   "pulsemixer",   0,          1,               1,           -1 },
 };
+
+/* window swallowing */
+static const int swaldecay = 3;
+static const int swalretroactive = 1;
+static const char swalsymbol[] = "👅";
 
 /* layout(s) */
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
@@ -108,7 +113,7 @@ static Key keys[] = {
 	{ MODKEY,           XK_r,                    spawn,          SHCMD("rofi -show window") },
 	{ MODKEY,           XK_s,                    spawn,          SHCMD("rofi -show ssh") },
 	{ MODKEY,           XK_n,                    spawn,          SHCMD("st -t 'nb' -e nb add") },
-	{ MODKEY,           XK_dead_grave,                spawn,          SHCMD("skippy-xd") },
+	{ MODKEY,           XK_dead_grave,           spawn,          SHCMD("skippy-xd") },
 	{ MODKEY,           XK_i,                    incnmaster,     {.i = +1 } },
 	{ MODKEY,           XK_o,                    incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask, XK_equal,                setgaps,        {.i = +5} },
@@ -138,6 +143,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_u,      swalstopsel,    {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -164,6 +170,7 @@ static Button buttons[] = {
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY|ShiftMask, Button1,      swalmouse,      {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
