@@ -15,6 +15,8 @@ Since this is suckless, documentation is source code :v
 - warp
 - focusonactive
 - ewmhtags
+- autostart
+- dynamicswallow
 
 The xrdb patch was modified to access all the avaliable colors, useful if you use pywal for example.
 
@@ -25,5 +27,3 @@ sudo make clean install
 
 ## Requirements
 This build assumes you have a version o `libxft` with support to colored emojis ( `libxft-bgra` on the AUR for example)
-
-
