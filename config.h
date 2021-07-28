@@ -15,7 +15,7 @@ static const unsigned int systraypinning = 2;   /* 0: sloppy systray follows sel
 static const unsigned int systrayspacing = 3;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[]          = { "Sarasa Term J:size=10","monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 
 /* Xresources colors, the values below are defaults */
@@ -112,7 +112,7 @@ static Key keys[] = {
 	{ MODKEY,           XK_v,                    spawn,          SHCMD("arandr") },
 	{ MODKEY,           XK_r,                    spawn,          SHCMD("rofi -show window") },
 	{ MODKEY,           XK_s,                    spawn,          SHCMD("rofi -show ssh") },
-	{ MODKEY,           XK_n,                    spawn,          SHCMD("st -t 'nb' -e nb add") },
+	{ MODKEY,           XK_n,                    spawn,          SHCMD("st -t 'nb' -e notetaker") },
 	{ MODKEY,           XK_dead_grave,           spawn,          SHCMD("skippy-xd") },
 	{ MODKEY,           XK_i,                    incnmaster,     {.i = +1 } },
 	{ MODKEY,           XK_o,                    incnmaster,     {.i = -1 } },
