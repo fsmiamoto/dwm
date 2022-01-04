@@ -134,8 +134,8 @@ static Key keys[] = {
 	{ NONE,             XF86XK_AudioMute,        spawn,          SHCMD("pulsemixer --toggle-mute && pkill -RTMIN+10 dwmblocks") },
 	{ NONE,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("pulsemixer --change-volume +3 && pkill -RTMIN+10 dwmblocks") },
 	{ NONE,             XF86XK_AudioLowerVolume, spawn,          SHCMD("pulsemixer --change-volume -3 && pkill -RTMIN+10 dwmblocks") },
-	{ NONE,             XF86XK_MonBrightnessUp,  spawn,          SHCMD("xbacklight -inc 5") },
-	{ NONE,             XF86XK_MonBrightnessDown, spawn,         SHCMD("xbacklight -dec 5") },
+	{ NONE,             XF86XK_MonBrightnessUp,  spawn,          SHCMD("light -A 20") },
+	{ NONE,             XF86XK_MonBrightnessDown, spawn,         SHCMD("light -U 20") },
 	{ NONE,             XK_Print,                spawn,          SHCMD("flameshot gui") },
     { MODKEY,           XK_m,                    zoom,           {0} },                                    /* Promote window as master */
 
