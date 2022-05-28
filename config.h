@@ -132,6 +132,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask, XK_l,                    spawn,          SHCMD("slock") },
 	{ MODKEY,           XK_Tab,                  setlayout,      {0} },
 	{ MODKEY,           XK_space,                togglefloating, {0} },
+	{ NONE,             XF86XK_Display,          spawn,          SHCMD("screenswitcher") },
 	{ NONE,             XF86XK_AudioMute,        spawn,          SHCMD("pulsemixer --toggle-mute && pkill -RTMIN+10 goblocks") },
 	{ NONE,             XF86XK_AudioRaiseVolume, spawn,          SHCMD("pulsemixer --change-volume +3 && pkill -RTMIN+10 goblocks") },
 	{ NONE,             XF86XK_AudioLowerVolume, spawn,          SHCMD("pulsemixer --change-volume -3 && pkill -RTMIN+10 goblocks") },
